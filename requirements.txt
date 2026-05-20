@@ -1,0 +1,9 @@
+streamlit>=1.30.0
+langchain-chroma
+langchain-community
+sentence-transformers
+google-generativeai
+python-pptx
+pymupdf
+python-dotenv
+pysqlite3-binary
