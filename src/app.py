@@ -19,7 +19,19 @@ from pptx import Presentation
 
 # ── Bootstrap ─────────────────────────────────────────────────────────────────
 load_dotenv(override=True)
-api_key = os.getenv("GEMINI_API_KEY")
+
+# Helper to fetch and configure key
+def get_api_key():
+    # 1. Try Streamlit Secrets
+    try:
+        if "GEMINI_API_KEY" in st.secrets:
+            return st.secrets["GEMINI_API_KEY"]
+    except Exception:
+        pass
+    # 2. Try OS Environment
+    return os.getenv("GEMINI_API_KEY")
+
+api_key = get_api_key()
 if api_key:
     genai.configure(api_key=api_key)
 
@@ -228,8 +240,14 @@ db = load_vector_store()
 
 # ── AI Response ────────────────────────────────────────────────────────────────
 def get_ai_response(user_prompt, class_level, subject, language, step_by_step, db):
+    global api_key
     if not api_key:
-        return "⚠️ Please configure `GEMINI_API_KEY` in your `.env` file."
+        api_key = get_api_key()
+        if api_key:
+            genai.configure(api_key=api_key)
+            
+    if not api_key:
+        return "⚠️ Please configure `GEMINI_API_KEY` in your Streamlit Secrets or `.env` file."
 
     db_context = ""
     if db:
@@ -385,8 +403,14 @@ with right_col:
     )
 
     if st.button("⬆️  Upload & Process"):
+        global api_key
         if not api_key:
-            st.error("Add GEMINI_API_KEY to your .env file.")
+            api_key = get_api_key()
+            if api_key:
+                genai.configure(api_key=api_key)
+                
+        if not api_key:
+            st.error("Add GEMINI_API_KEY to your Streamlit Secrets or .env file.")
         elif not uploaded_files:
             st.warning("Select at least one file first.")
         else:
