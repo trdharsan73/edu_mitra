@@ -1,0 +1,27 @@
+# Python virtual environment
+venv/
+.venv/
+ENV/
+env/
+
+# Environment variables (contains secret API keys)
+.env
+
+# Large Raw PDF folders (downloaded book content)
+NCERT*/
+StateBoard*/
+Stateboard*/
+
+# Chroma SQLite database (too large for GitHub & causes OOM in Streamlit Cloud RAM limit)
+chroma_db/
+
+# Python compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.bak
