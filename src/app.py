@@ -50,39 +50,40 @@ dark = st.session_state.dark_mode
 # ── Design System CSS (theme-aware) ─────────────────────────────────────────
 _t = {
     # ── Dark backgrounds: warm charcoal layered system ──
-    "app_bg":        "#13151f" if dark else "#f8f9ff",
-    "sidebar_bg":    "#1a1d2e" if dark else "#f8f9ff",
-    "sidebar_border":"#2a2f45" if dark else "#dce9ff",
-    "card_bg":       "#1e2235" if dark else "#ffffff",
-    "card_border":   "#2e3450" if dark else "#dce9ff",
-    "right_bg":      "#1a1d2e" if dark else "#eff4ff",
-    # ── Typography: high-contrast slate scale ──
-    "text_primary":  "#e8eaf4" if dark else "#0b1c30",
-    "text_secondary":"#7c85a2" if dark else "#6d7b6c",
-    "text_label":    "#9ba3bf" if dark else "#3d4a3d",
-    # ── Brand green: vivid emerald for dark mode ──
-    "primary":       "#4ade80" if dark else "#006e2f",
-    "primary_hover": "#22c55e" if dark else "#005321",
-    "primary_light": "rgba(74,222,128,0.12)" if dark else "rgba(0,110,47,0.07)",
-    # ── Chat bubbles: distinctly tinted layers ──
-    "ai_bubble_bg":  "#18261e" if dark else "#f0fdf4",
-    "ai_bubble_bdr": "rgba(74,222,128,0.22)" if dark else "#bbf7d0",
-    "user_bubble_bg":"#1c2240" if dark else "#e5eeff",
-    "user_bubble_bdr":"rgba(120,140,255,0.25)" if dark else "#dce9ff",
+    "app_bg":        "#0b0c10" if dark else "#f9f9f9",
+    "sidebar_bg":    "#111319" if dark else "#f3f3f3",
+    "sidebar_border":"#232836" if dark else "#bccac0",
+    "card_bg":       "#161922" if dark else "#ffffff",
+    "card_border":   "#232836" if dark else "#e2e2e2",
+    "right_bg":      "#111319" if dark else "#f3f3f3",
+    # ── Typography ──
+    "text_primary":  "#f3f4f6" if dark else "#1a1c1c",
+    "text_secondary":"#9ca3af" if dark else "#3d4a42",
+    "text_label":    "#9ca3af" if dark else "#3d4a3d",
+    # ── Brand green: emerald system ──
+    "primary":       "#68dba9" if dark else "#006948",
+    "primary_hover": "#85f8c4" if dark else "#005137",
+    "primary_light": "rgba(104,219,169,0.1)" if dark else "rgba(0,105,72,0.08)",
+    # ── Chat bubbles ──
+    "ai_bubble_bg":  "#161922" if dark else "#ffffff",
+    "ai_bubble_bdr": "#232836" if dark else "#e2e2e2",
+    "user_bubble_bg":"#1e293b" if dark else "#e2e2e2",
+    "user_bubble_bdr":"transparent" if dark else "transparent",
     # ── Inputs / form fields ──
-    "input_bg":      "#1e2235" if dark else "#ffffff",
-    "input_border":  "#2e3450" if dark else "#dce9ff",
+    "input_bg":      "#161922" if dark else "#ffffff",
+    "input_border":  "#232836" if dark else "#e2e2e2",
     # ── Misc ──
-    "hr_color":      "#2a2f45" if dark else "#dce9ff",
-    "scrollbar":     "#2a2f45" if dark else "#dce9ff",
-    "badge_bg":      "#18261e" if dark else "#f0fdf4",
-    "badge_border":  "rgba(74,222,128,0.3)" if dark else "#bbf7d0",
-    "select_bg":     "#1e2235" if dark else "#ffffff",
+    "hr_color":      "#232836" if dark else "#e2e2e2",
+    "scrollbar":     "#232836" if dark else "#dadada",
+    "badge_bg":      "rgba(104,219,169,0.1)" if dark else "rgba(0,105,72,0.05)",
+    "badge_border":  "rgba(104,219,169,0.2)" if dark else "rgba(0,105,72,0.15)",
+    "select_bg":     "#161922" if dark else "#ffffff",
 }
 
 st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
 
 *, *::before, *::after {{ box-sizing: border-box; }}
 html, body, .stApp {{
@@ -90,6 +91,12 @@ html, body, .stApp {{
     background-color: {_t['app_bg']} !important;
     color: {_t['text_primary']};
     transition: background-color 0.3s ease, color 0.3s ease;
+}}
+
+h1, h2, h3, h4, h5, h6 {{
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
 }}
 
 #MainMenu, footer, header {{ visibility: hidden; }}
@@ -110,34 +117,42 @@ section[data-testid="stSidebar"] > div:first-child {{ padding: 0 !important; }}
     color: {_t['text_label']} !important;
     font-size: 13px !important;
     font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
 }}
 .stSelectbox > div > div {{
     background: {_t['select_bg']} !important;
     border: 1px solid {_t['card_border']} !important;
-    border-radius: 10px !important;
+    border-radius: 12px !important;
     color: {_t['text_primary']} !important;
     font-size: 14px !important;
+    padding: 2px 4px !important;
+    transition: border-color 0.2s ease;
+}}
+.stSelectbox > div > div:focus-within {{
+    border-color: {_t['primary']} !important;
 }}
 
-/* Checkbox */
-.stCheckbox span {{ color: {_t['text_primary']} !important; }}
+/* Checkbox Toggle Switch Styling */
+.stCheckbox span {{ color: {_t['text_primary']} !important; font-size: 14px !important; }}
 
 /* Buttons */
 .stButton > button {{
     background-color: {_t['primary']} !important;
     color: #ffffff !important;
     border: none !important;
-    border-radius: 10px !important;
+    border-radius: 9999px !important;
     font-size: 14px !important;
     font-weight: 600 !important;
-    padding: 10px 20px !important;
+    padding: 10px 24px !important;
     width: 100% !important;
-    transition: background 0.2s, transform 0.15s !important;
-    box-shadow: 0 2px 8px rgba(0,110,47,0.2) !important;
+    transition: all 0.2s ease-in-out !important;
+    box-shadow: 0 4px 12px rgba(0, 105, 72, 0.15) !important;
 }}
 .stButton > button:hover {{
     background-color: {_t['primary_hover']} !important;
     transform: translateY(-1px) !important;
+    box-shadow: 0 6px 16px rgba(0, 105, 72, 0.25) !important;
 }}
 .stButton > button:active {{ transform: scale(0.98) !important; }}
 
@@ -145,20 +160,21 @@ section[data-testid="stSidebar"] > div:first-child {{ padding: 0 !important; }}
 div[data-testid="stChatMessage"] {{
     background-color: transparent !important;
     border: none !important;
-    padding: 4px 0 !important;
+    padding: 6px 0 !important;
 }}
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) > div:last-child {{
     background: {_t['ai_bubble_bg']} !important;
     border: 1px solid {_t['ai_bubble_bdr']} !important;
     border-radius: 20px 20px 20px 4px !important;
-    padding: 16px 20px !important;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08) !important;
+    padding: 18px 24px !important;
+    box-shadow: 0 4px 20px -8px rgba(0,0,0,0.06), 0 2px 6px -4px rgba(0,0,0,0.03) !important;
 }}
 div[data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-user"]) > div:last-child {{
     background: {_t['user_bubble_bg']} !important;
-    border: 1px solid {_t['user_bubble_bdr']} !important;
+    border: none !important;
     border-radius: 20px 20px 4px 20px !important;
-    padding: 16px 20px !important;
+    padding: 14px 20px !important;
+    box-shadow: 0 2px 8px -2px rgba(0,0,0,0.04) !important;
 }}
 div[data-testid="stChatMessageContent"] p {{
     color: {_t['text_primary']} !important;
@@ -166,13 +182,30 @@ div[data-testid="stChatMessageContent"] p {{
     line-height: 1.65 !important;
 }}
 
+/* Customizing Streamlit's Chat Message Avatars */
+div[data-testid="stChatMessage"] div[data-testid="chatAvatarIcon-assistant"] {{
+    background-color: {_t['badge_bg']} !important;
+    color: {_t['primary']} !important;
+    border-radius: 50% !important;
+}}
+div[data-testid="stChatMessage"] div[data-testid="chatAvatarIcon-user"] {{
+    background-color: {_t['user_bubble_bg']} !important;
+    color: {_t['text_primary']} !important;
+    border-radius: 50% !important;
+}}
+
 /* Chat Input */
 div[data-testid="stChatInput"] {{
     background: {_t['input_bg']} !important;
-    border: 1.5px solid {_t['input_border']} !important;
-    border-radius: 24px !important;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
-    padding: 4px 8px !important;
+    border: 1px solid {_t['input_border']} !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 8px 32px -8px rgba(0,0,0,0.08) !important;
+    padding: 6px 12px !important;
+    transition: focus-within 0.25s ease;
+}}
+div[data-testid="stChatInput"]:focus-within {{
+    border-color: {_t['primary']} !important;
+    box-shadow: 0 8px 32px -8px rgba(0, 105, 72, 0.12) !important;
 }}
 div[data-testid="stChatInput"] textarea {{
     color: {_t['text_primary']} !important;
@@ -189,7 +222,11 @@ div[data-testid="stFileUploader"] > div {{
     background: {_t['card_bg']} !important;
     border: 1.5px dashed {_t['card_border']} !important;
     border-radius: 14px !important;
-    padding: 16px !important;
+    padding: 20px !important;
+    transition: border-color 0.2s ease;
+}}
+div[data-testid="stFileUploader"] > div:hover {{
+    border-color: {_t['primary']} !important;
 }}
 div[data-testid="stFileUploader"] p, div[data-testid="stFileUploader"] span {{
     color: {_t['text_secondary']} !important;
@@ -199,7 +236,7 @@ div[data-testid="stFileUploader"] p, div[data-testid="stFileUploader"] span {{
 div[data-testid="stAlert"] {{
     background: {_t['badge_bg']} !important;
     border: 1px solid {_t['badge_border']} !important;
-    border-radius: 12px !important;
+    border-radius: 14px !important;
     color: {_t['text_primary']} !important;
 }}
 
@@ -210,9 +247,9 @@ hr {{ border-color: {_t['hr_color']} !important; }}
 div[data-testid="stSpinner"] p {{ color: {_t['primary']} !important; }}
 
 /* Scrollbar */
-::-webkit-scrollbar {{ width: 5px; }}
+::-webkit-scrollbar {{ width: 6px; }}
 ::-webkit-scrollbar-track {{ background: transparent; }}
-::-webkit-scrollbar-thumb {{ background: {_t['scrollbar']}; border-radius: 10px; }}
+::-webkit-scrollbar-thumb {{ background: {_t['scrollbar']}; border-radius: 9999px; }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -313,12 +350,10 @@ with st.sidebar:
     brand_color  = _t['primary']
     sub_color    = _t['text_secondary']
     st.markdown(f"""
-    <div style="padding:24px 20px 20px; border-bottom:1px solid {brand_border};
-                display:flex;justify-content:space-between;align-items:center;">
-        <div>
-            <div style="font-size:24px;font-weight:700;color:{brand_color};letter-spacing:-0.5px;">EduMitra</div>
-            <div style="font-size:12px;color:{sub_color};margin-top:2px;">Intelligent Growth</div>
-        </div>
+    <div style="padding:24px 24px 16px; border-bottom:1px solid {brand_border};
+                display:flex; flex-direction:column; gap:4px; margin-bottom:12px;">
+        <h1 style="margin:0; font-size:26px; font-weight:800; color:{brand_color}; letter-spacing:-0.03em;">EduMitra</h1>
+        <p style="margin:0; font-size:11px; font-weight:600; color:{sub_color}; text-transform:uppercase; letter-spacing:0.1em;">Intelligent Growth</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -329,34 +364,32 @@ with st.sidebar:
 
     # Nav links (visual only)
     nav_items = [
-        #("📊", "Dashboard"),
-       # ("📚", "My Courses"),
-        ("🤖", "AI Tutor"),
-       # ("📝", "Assignments"),
-       # ("📈", "Analytics"),
+        ("school", "AI Tutor"),
+        ("insights", "Performance Dashboard"),
     ]
-    st.markdown('<div style="padding:16px 12px 8px;">', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:8px 16px 8px;">', unsafe_allow_html=True)
     for icon, label in nav_items:
         active = label == "AI Tutor"
         bg     = _t['primary_light'] if active else "transparent"
         color  = _t['primary'] if active else _t['text_secondary']
         weight = "600" if active else "400"
-        border = f"3px solid {_t['primary']}" if active else "3px solid transparent"
+        fill   = "1" if active else "0"
         st.markdown(f"""
         <div style="display:flex;align-items:center;gap:12px;padding:10px 14px;
-                    border-radius:12px;background:{bg};border-right:{border};
-                    margin-bottom:2px;cursor:pointer;">
-            <span style="font-size:18px;">{icon}</span>
+                    border-radius:12px;background:{bg};margin-bottom:2px;cursor:pointer;
+                    transition:background 0.2s ease, transform 0.2s ease;">
+            <span class="material-symbols-outlined"
+                  style="font-size:20px;color:{color};font-variation-settings:'FILL' {fill};">{icon}</span>
             <span style="font-size:14px;font-weight:{weight};color:{color};">{label}</span>
         </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    st.markdown('<div style="padding:0 16px;">', unsafe_allow_html=True)
+    st.markdown(f'<div style="padding:0 16px;">', unsafe_allow_html=True)
     st.markdown("---")
 
     # Tutor Preferences
-    st.markdown(f'<p style="font-size:13px;font-weight:700;color:{_t["text_label"]};text-transform:uppercase;letter-spacing:0.06em;margin-bottom:12px;">Tutor Settings</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="font-size:11px;font-weight:700;color:{_t["text_label"]};text-transform:uppercase;letter-spacing:0.08em;margin-bottom:12px;">Tutor Settings</p>', unsafe_allow_html=True)
 
     class_level = st.selectbox("Class Level", ["8", "9", "10", "11", "12", "College"])
     subject     = st.selectbox("Subject", ["Mathematics", "Physics", "Chemistry", "Biology", "Science", "General"])
@@ -366,18 +399,40 @@ with st.sidebar:
     st.markdown("---")
     st.markdown(f'<p style="font-size:11px;color:{_t["text_secondary"]};line-height:1.5;">Powered by Gemini 2.5 Flash · 48,000+ NCERT chunks</p>', unsafe_allow_html=True)
 
+    # Footer links
+    st.markdown(f"""
+    <div style="display:flex;justify-content:space-between;padding-top:12px;border-top:1px solid {_t['card_border']};margin-top:8px;">
+        <a href="#" style="color:{_t['text_secondary']};text-decoration:none;font-size:12px;font-weight:500;
+                           display:inline-flex;align-items:center;gap:4px;transition:color 0.2s ease;">
+            <span class="material-symbols-outlined" style="font-size:16px;">settings</span> Settings
+        </a>
+        <a href="#" style="color:{_t['text_secondary']};text-decoration:none;font-size:12px;font-weight:500;
+                           display:inline-flex;align-items:center;gap:4px;transition:color 0.2s ease;">
+            <span class="material-symbols-outlined" style="font-size:16px;">help</span> Help
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.markdown("</div>", unsafe_allow_html=True)
 
     # Upgrade CTA
-    st.markdown("""
-    <div style="padding:16px;margin:12px 16px 20px;">
-        <button style="width:100%;background:#006e2f;color:white;border:none;
-                       border-radius:12px;padding:12px;font-size:14px;font-weight:600;
-                       cursor:pointer;box-shadow:0 2px 8px rgba(0,110,47,0.2);">
-            ✨ Upgrade to Pro
-        </button>
+    st.markdown(f"""
+    <div style="background:{_t['card_bg']}; border: 1px solid {_t['card_border']};
+                border-radius: 12px; padding: 16px; margin: 12px 16px 8px;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.03); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px; color: {_t['primary']};">
+            <span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 1;">workspace_premium</span>
+            <h3 style="margin: 0; font-size: 14px; font-weight: 700; color: {_t['text_primary']};">EduMitra Pro</h3>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: {_t['text_secondary']}; line-height: 1.5;">
+            Unlock infinite PDF uploads and priority AI processing.
+        </p>
     </div>
     """, unsafe_allow_html=True)
+
+    st.markdown('<div style="padding: 0 16px 20px;">', unsafe_allow_html=True)
+    st.button("✨ Go Premium", key="go_premium")
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -388,9 +443,10 @@ chat_col, right_col = st.columns([7, 3], gap="large")
 
 # ── RIGHT PANEL ───────────────────────────────────────────────────────────────
 with right_col:
-    st.markdown("""
-    <div style="padding:24px 0 0;">
-        <p style="font-size:18px;font-weight:700;color:#0b1c30;margin:0 0 16px;">Knowledge Sources</p>
+    st.markdown(f"""
+    <div style="padding: 24px 0 0; display: flex; align-items: center; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid {_t['card_border']}; padding-bottom: 16px;">
+        <span class="material-symbols-outlined" style="color: {_t['primary']}; font-size: 22px;">library_books</span>
+        <h3 style="margin: 0; font-size: 18px; font-weight: 700; color: {_t['text_primary']};">Knowledge Base</h3>
     </div>
     """, unsafe_allow_html=True)
 
@@ -403,7 +459,6 @@ with right_col:
     )
 
     if st.button("⬆️  Upload & Process"):
-        global api_key
         if not api_key:
             api_key = get_api_key()
             if api_key:
@@ -432,18 +487,22 @@ with right_col:
 
     # Active sources list
     if st.session_state.gemini_files:
-        st.markdown('<p style="font-size:12px;font-weight:700;color:#3d4a3d;text-transform:uppercase;letter-spacing:0.05em;margin:16px 0 8px;">Active Sources</p>', unsafe_allow_html=True)
+        st.markdown(f'<p style="font-size:11px;font-weight:700;color:{_t["text_label"]};text-transform:uppercase;letter-spacing:0.08em;margin:20px 0 10px;">Active Sources</p>', unsafe_allow_html=True)
         for name in st.session_state.gemini_files:
             ext = name.split(".")[-1].upper()
-            icon_color = "#ba1a1a" if ext == "PDF" else "#494bd6"
+            icon_color = "#E5252A" if ext == "PDF" else _t['primary']
+            mat_icon = "picture_as_pdf" if ext == "PDF" else "image"
             st.markdown(f"""
             <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;
-                        background:white;border:1px solid #dce9ff;border-radius:12px;margin-bottom:6px;">
-                <span style="font-size:18px;color:{icon_color};">📄</span>
-                <div style="min-width:0;">
-                    <p style="font-size:13px;font-weight:500;color:#0b1c30;margin:0;
+                        background:{_t['card_bg']};border:1px solid {_t['card_border']};
+                        border-radius:10px;margin-bottom:6px;
+                        box-shadow:0 2px 6px rgba(0,0,0,0.03);
+                        transition:transform 0.15s ease;">
+                <span class="material-symbols-outlined" style="color:{icon_color};font-size:22px;">{mat_icon}</span>
+                <div style="min-width:0;flex:1;">
+                    <p style="font-size:13px;font-weight:600;color:{_t['text_primary']};margin:0;
                                white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{name}</p>
-                    <p style="font-size:11px;color:#6d7b6c;margin:0;">{ext} · uploaded</p>
+                    <p style="font-size:11px;color:{_t['text_secondary']};margin:0;">Loaded · {ext}</p>
                 </div>
             </div>
             """, unsafe_allow_html=True)
@@ -460,8 +519,17 @@ with right_col:
     st.markdown("---")
 
     # PPT Studio
-    st.markdown('<p style="font-size:18px;font-weight:700;color:#0b1c30;margin:0 0 6px;">Presentation Studio</p>', unsafe_allow_html=True)
-    st.markdown('<p style="font-size:13px;color:#6d7b6c;margin:0 0 14px;">Generate a PowerPoint from your documents & chat.</p>', unsafe_allow_html=True)
+    st.markdown(f"""
+    <div style="margin-top: 24px; background: linear-gradient(135deg, {_t['card_bg']}, {_t['right_bg']}); border-radius: 12px; padding: 20px; border: 1px solid {_t['card_border']}; box-shadow: 0 4px 12px rgba(0,0,0,0.03); position: relative; overflow: hidden; margin-bottom: 16px;">
+        <div style="display: flex; align-items: center; gap: 8px; color: {_t['primary']}; margin-bottom: 8px;">
+            <span class="material-symbols-outlined" style="font-size: 20px; font-variation-settings: 'FILL' 1;">co_present</span>
+            <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: {_t['text_primary']};">Presentation Studio</h3>
+        </div>
+        <p style="margin: 0; font-size: 13px; color: {_t['text_secondary']}; line-height: 1.5;">
+            Convert current chat context and documents into a structured slide deck.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
     if st.button("✨  Create Summary PPT"):
         st.session_state.generate_ppt = True
@@ -502,16 +570,18 @@ with chat_col:
     # Top bar
     ncert_loaded = bool(db)
     sources_loaded = bool(st.session_state.gemini_files)
-    badge_color = "#006e2f" if (ncert_loaded or sources_loaded) else "#6d7b6c"
+    badge_bg_color = _t['badge_bg']
+    badge_border_color = _t['badge_border']
+    badge_text_color = _t['primary'] if (ncert_loaded or sources_loaded) else _t['text_secondary']
     badge_text  = "NCERT Context Loaded" if ncert_loaded else "No RAG Context"
 
     st.markdown(f"""
     <div style="display:flex;justify-content:space-between;align-items:center;
-                padding:20px 4px 16px;border-bottom:1px solid #dce9ff;margin-bottom:20px;">
-        <h2 style="margin:0;font-size:22px;font-weight:700;color:#006e2f;">AI Tutor</h2>
-        <span style="display:inline-flex;align-items:center;gap:6px;background:#f0fdf4;
-                     border:1px solid #bbf7d0;border-radius:20px;padding:5px 12px;
-                     font-size:12px;font-weight:600;color:{badge_color};">
+                padding:20px 4px 16px;border-bottom:1px solid {_t['card_border']};margin-bottom:20px;">
+        <h2 style="margin:0;font-size:22px;font-weight:700;color:{_t['primary']};">AI Tutor</h2>
+        <span style="display:inline-flex;align-items:center;gap:6px;background:{badge_bg_color};
+                     border:1px solid {badge_border_color};border-radius:20px;padding:5px 12px;
+                     font-size:12px;font-weight:600;color:{badge_text_color};">
             ● {badge_text}
         </span>
     </div>
@@ -519,29 +589,40 @@ with chat_col:
 
     # Welcome message
     if not st.session_state.messages:
-        st.markdown("""
-        <div style="background:rgba(240,253,244,0.9);border:1px solid rgba(74,225,118,0.2);
-                    border-radius:20px 20px 20px 4px;padding:20px 24px;margin-bottom:24px;
-                    box-shadow:0 1px 4px rgba(0,0,0,0.04);">
-            <p style="font-size:16px;font-weight:600;color:#006e2f;margin:0 0 8px;">
-                👋 Hello! I'm EduMitra.
-            </p>
-            <p style="font-size:15px;color:#0b1c30;margin:0 0 16px;line-height:1.6;">
-                I'm your personalised AI tutor for CBSE & State Board subjects. 
-                Ask me anything — I'll explain concepts step by step, in your language.
-            </p>
-            <div style="display:flex;flex-wrap:wrap;gap:8px;">
-                <span style="background:white;border:1px solid #dce9ff;border-radius:20px;
-                             padding:6px 14px;font-size:13px;color:#006e2f;font-weight:500;">
-                    ✨ Explain step-by-step
+        st.markdown(f"""
+        <div style="background:{_t['card_bg']}; border:1px solid {_t['card_border']};
+                    border-radius:16px; padding:28px; margin-bottom:24px;
+                    box-shadow:0 4px 24px -8px rgba(0,0,0,0.06); transition:transform 0.3s ease;">
+            <div style="display:flex; align-items:flex-start; gap:16px; margin-bottom:20px;">
+                <div style="width:48px; height:48px; border-radius:50%; background:{_t['primary_light']};
+                            display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                    <span class="material-symbols-outlined" style="color:{_t['primary']}; font-size:28px;">smart_toy</span>
+                </div>
+                <div>
+                    <h2 style="margin:0 0 6px; font-size:24px; font-weight:700; color:{_t['text_primary']};">Hello! I'm EduMitra.</h2>
+                    <p style="margin:0; font-size:15px; color:{_t['text_secondary']}; line-height:1.6;">
+                        Your personalized AI tutor. I notice we are focusing on <strong style="color:{_t['primary']}; font-weight:600;">Class {class_level} {subject}</strong> today. How can I assist you with your studies?
+                    </p>
+                </div>
+            </div>
+            <div style="display:flex; flex-wrap:wrap; gap:12px; margin-top:20px; border-top:1px solid {_t['card_border']}; padding-top:20px;">
+                <span style="background:{_t['app_bg']}; border:1px solid {_t['card_border']}; border-radius:9999px;
+                             padding:8px 16px; font-size:13px; color:{_t['text_primary']}; font-weight:500;
+                             display:inline-flex; align-items:center; gap:8px;">
+                    <span class="material-symbols-outlined" style="color:{_t['primary']}; font-size:18px;">step</span>
+                    Explain step-by-step
                 </span>
-                <span style="background:white;border:1px solid #dce9ff;border-radius:20px;
-                             padding:6px 14px;font-size:13px;color:#006e2f;font-weight:500;">
-                    🧪 Generate practice questions
+                <span style="background:{_t['app_bg']}; border:1px solid {_t['card_border']}; border-radius:9999px;
+                             padding:8px 16px; font-size:13px; color:{_t['text_primary']}; font-weight:500;
+                             display:inline-flex; align-items:center; gap:8px;">
+                    <span class="material-symbols-outlined" style="color:{_t['primary']}; font-size:18px;">quiz</span>
+                    Generate practice questions
                 </span>
-                <span style="background:white;border:1px solid #dce9ff;border-radius:20px;
-                             padding:6px 14px;font-size:13px;color:#006e2f;font-weight:500;">
-                    🌐 Answer in Tamil
+                <span style="background:{_t['app_bg']}; border:1px solid {_t['card_border']}; border-radius:9999px;
+                             padding:8px 16px; font-size:13px; color:{_t['text_primary']}; font-weight:500;
+                             display:inline-flex; align-items:center; gap:8px;">
+                    <span class="material-symbols-outlined" style="color:{_t['primary']}; font-size:18px;">translate</span>
+                    Answer in Tanglish
                 </span>
             </div>
         </div>
